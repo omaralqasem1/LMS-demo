@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { LmsRoutingModule } from './lms-routing.module';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
   declarations: [
-    MainLayoutComponent
+    MainLayoutComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
