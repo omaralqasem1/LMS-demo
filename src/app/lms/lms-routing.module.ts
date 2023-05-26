@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from '../account/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
+        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+        canMatch: [AuthGuard]
       },
       {
         path: '',
