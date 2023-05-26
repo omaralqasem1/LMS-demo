@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 import { UsersService } from '../../services/users.service';
 
@@ -17,8 +17,9 @@ export class SignUpComponent implements OnInit {
     this.form = formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: [''],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
+      confirmPassword: ['', [Validators.required, this.matchPasswordValidator.bind(this)]]
     })
   }
 
@@ -29,5 +30,13 @@ export class SignUpComponent implements OnInit {
   register() {
     this.accountService.signUp(this.form.value).subscribe();
   }
+
+  matchPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    const password = this.form.value.password;
+    return password == control.value ? null : {
+      passwordDoesNotMatch: true
+    }
+  };
 
 }

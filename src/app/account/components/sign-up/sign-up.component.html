@@ -4,22 +4,38 @@
             <mat-form-field class="col" appearance="outline">
                 <mat-label>First Name</mat-label>
                 <input matInput formControlName="firstName">
+                <mat-error *ngIf="form.controls['firstName'].errors">{{form.controls['firstName'].errors |
+                    ctrErrorMsg}}</mat-error>
             </mat-form-field>
             <mat-form-field class="col" appearance="outline">
                 <mat-label>Last Name</mat-label>
                 <input matInput formControlName="lastName">
+                <mat-error *ngIf="form.controls['lastName'].errors">{{form.controls['lastName'].errors |
+                    ctrErrorMsg}}</mat-error>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="email" type="email" placeholder="email@example.com">
+                <mat-error *ngIf="form.controls['email'].errors">{{form.controls['email'].errors |
+                    ctrErrorMsg}}</mat-error>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput formControlName="password" type="password">
+                <mat-error *ngIf="form.controls['password'].errors">{{form.controls['password'].errors |
+                    ctrErrorMsg}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="confirmPassword" type="password">
+                <mat-error *ngIf="form.controls['confirmPassword'].errors">{{form.controls['confirmPassword'].errors |
+                    ctrErrorMsg}}</mat-error>
             </mat-form-field>
         </div>
         <div>
