@@ -1,2 +1,22 @@
-<p>main-layout works!</p>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+    <span>LMS Demo</span>
+
+    <div class="ms-4 d-flex gap-2">
+        <a mat-button class="navbar-header-item" href="/" routerLink="./"
+            routerLinkActive="navbar-header-item-selected">
+            <span>Home</span>
+        </a>
+        <a mat-button href="/categories" class="navbar-header-item" routerLink="categories"
+            routerLinkActive="navbar-header-item-selected">
+            <span>Categories</span>
+        </a>
+        <a mat-button href="/books" routerLink="books" class="navbar-header-item"
+            routerLinkActive="navbar-header-item-selected">
+            <span>Books</span>
+        </a>
+    </div>
+
+</mat-toolbar>
+<div class="p-3">
+    <router-outlet></router-outlet>
+</div>
