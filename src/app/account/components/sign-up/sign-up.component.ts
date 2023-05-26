@@ -28,6 +28,7 @@ export class SignUpComponent implements OnInit {
   }
 
   register() {
+    if (this.form.invalid) return;
     this.accountService.signUp(this.form.value).subscribe();
   }
 

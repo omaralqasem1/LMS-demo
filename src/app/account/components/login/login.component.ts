@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.form.invalid) return;
     this.accountService.login(this.form.value).subscribe();
   }
   register(event: Event) {

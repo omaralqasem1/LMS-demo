@@ -39,7 +39,8 @@
             </mat-form-field>
         </div>
         <div>
-            <button mat-flat-button class="w-100" color="primary" (click)="register()">Sign Up</button>
+            <button mat-flat-button class="w-100" color="primary" [disabled]="form.invalid" (click)="register()">Sign
+                Up</button>
         </div>
     </form>
 </div>
