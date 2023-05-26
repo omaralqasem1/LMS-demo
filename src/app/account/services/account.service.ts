@@ -33,11 +33,12 @@ export class AccountService {
     let user: any;
     return this.fireAuth.authState.pipe(
       mergeMap(authState => {
-        if (!authState) return of(null);
         user = {
-          email: authState.email,
-          id: authState.uid
+          email: authState ? authState.email : null,
+          id: authState ? authState.uid : null,
+          isAuthenticated: authState ? true : false
         };
+        if (!authState) return of(null);
         return this.usersService.get(authState?.uid)
       }),
       map((res: any) => {
@@ -66,5 +67,8 @@ export class AccountService {
     );
   }
 
+  signOut() {
+    return from(this.fireAuth.signOut());
+  }
 
 }
