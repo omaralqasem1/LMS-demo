@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LmsRoutingModule } from './lms-routing.module';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { HomeComponent } from './components/home/home.component';
+import { CategoriesService } from './categories/services/categories.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule
-  ]
+  ],
+  providers: [CategoriesService]
 })
 export class LmsModule { }

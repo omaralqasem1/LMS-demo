@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 import { Category } from '../models.ts/category.class';
 import { from, map } from 'rxjs';
 import { collection, getCountFromServer } from 'firebase/firestore';
@@ -7,20 +7,17 @@ import { collection, getCountFromServer } from 'firebase/firestore';
 @Injectable()
 export class CategoriesService {
   private _collectionName: string;
-  private _collection: AngularFirestoreCollection;
 
   constructor(private fireStore: AngularFirestore) {
     this._collectionName = 'categories';
-    this._collection = this.fireStore.collection<Category>(this._collectionName);
   }
 
   create(category: Category) {
-    category.id = this.fireStore.createId();
-    return from(this._collection.add(category));
+    return from(this.fireStore.doc(`${this._collectionName}/${category.id}`).set({ ...category }));
   }
 
   get(id: string) {
-    return this._collection.doc(id).valueChanges();
+    return this.fireStore.collection<Category>(this._collectionName).doc(id).valueChanges();
   }
 
   getCount() {
@@ -30,15 +27,15 @@ export class CategoriesService {
     );
   }
 
-  getList() {
-    return this._collection.valueChanges();
+  getList(queryFn?: QueryFn) {
+    return this.fireStore.collection<Category>(this._collectionName, queryFn).valueChanges();
   }
 
   delete(id: string) {
-    return from(this._collection.doc(id).delete());
+    return from(this.fireStore.collection<Category>(this._collectionName).doc(id).delete());
   }
 
   update(category: Category) {
-    return from(this._collection.doc(category.id).update(category));
+    return from(this.fireStore.collection<Category>(this._collectionName).doc(category.id).update(category));
   }
 }
