@@ -17,6 +17,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   pageIndex: number;
   pageSize: number;
   getListSubscription!: Subscription;
+  selectedCategory!: Category;
 
 
   constructor(private categoriesService: CategoriesService) {
@@ -34,7 +35,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.get(q => {
-      return q.orderBy('name').limit(this.pageSize);
+      return q.orderBy('id').limit(this.pageSize);
     });
     this.categoriesService.getCount().subscribe(count => {
       this.count = count;
@@ -53,7 +54,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   nextPage() {
     const lastDoc = this.list[this.list.length - 1];
     this.get(q => {
-      return q.orderBy('name').startAfter(lastDoc.id)
+      return q.orderBy('id').startAfter(lastDoc.id)
         .limit(this.pageSize);
     });
   }
@@ -61,7 +62,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   prevPage() {
     const firstDoc = this.list[0];
     this.get(q => {
-      return q.orderBy('name').endBefore(firstDoc.id)
+      return q.orderBy('id').endBefore(firstDoc.id)
         .limitToLast(this.pageSize);
     });
   }
@@ -81,4 +82,18 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     });
   }
 
+  update(category: Category) {
+    this.categoriesService.update(category).subscribe(_ => {
+    });
+  }
+
+  add() {
+    this.selectedCategory = <any>null;
+  }
+
+  create(category: Category) {
+    this.categoriesService.create(category).subscribe(_ => {
+
+    })
+  }
 }

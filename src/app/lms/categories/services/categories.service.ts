@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 import { Category } from '../models.ts/category.class';
-import { from, map } from 'rxjs';
+import { from, map, tap } from 'rxjs';
 import { collection, getCountFromServer } from 'firebase/firestore';
 
 @Injectable()
@@ -13,7 +13,8 @@ export class CategoriesService {
   }
 
   create(category: Category) {
-    return from(this.fireStore.doc(`${this._collectionName}/${category.id}`).set({ ...category }));
+    const id = this.fireStore.createId();
+    return from(this.fireStore.doc(`${this._collectionName}/${id}`).set({ ...category, id }));
   }
 
   get(id: string) {
