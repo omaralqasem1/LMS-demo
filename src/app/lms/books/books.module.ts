@@ -11,11 +11,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { BooksDetailsComponent } from './components/books-details/books-details.component';
 
 
 @NgModule({
   declarations: [
-    BooksListComponent
+    BooksListComponent,
+    BooksDetailsComponent
   ],
   imports: [
     CommonModule,
