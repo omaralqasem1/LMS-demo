@@ -19,6 +19,11 @@ const routes: Routes = [
         canMatch: [AuthGuard]
       },
       {
+        path: 'books',
+        loadChildren: () => import('./books/books.module').then(m => m.BooksModule),
+        canMatch: [AuthGuard]
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
