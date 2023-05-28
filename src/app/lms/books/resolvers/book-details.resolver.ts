@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, of, tap, throwError } from 'rxjs';
 import { IBook } from '../models/book.interface';
 import { BooksService } from '../services/books.service';
 
@@ -16,7 +16,7 @@ export class BookDetailsResolver implements Resolve<IBook | undefined> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IBook | undefined> {
     const id = route.params['id'];
-    return this.booksService.get(id).pipe(
+    return id == 'new' ? of(undefined) : this.booksService.get(id).pipe(
       tap(book => {
         if (!book) throw new Error('not exist');
       }),

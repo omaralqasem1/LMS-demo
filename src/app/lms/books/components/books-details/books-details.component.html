@@ -1,1 +1,19 @@
-<p>books-details works!</p>
+<form [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="categoryId">
+        
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Author</mat-label>
+        <input matInput formControlName="author">
+  
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="save()"
+    [disabled]="form.invalid">Save</button>
+</form>
