@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LmsRoutingModule } from './lms-routing.module';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { HomeComponent } from './components/home/home.component';
 import { CategoriesService } from './categories/services/categories.service';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -21,9 +19,8 @@ import { CategoriesService } from './categories/services/categories.service';
     CommonModule,
     LmsRoutingModule,
     MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule
+    SharedModule,
+    MatMenuModule
   ],
   providers: [CategoriesService]
 })
