@@ -13,12 +13,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BooksDetailsComponent } from './components/books-details/books-details.component';
+import { CategoryNamePipe } from './pipes/category-name.pipe';
+import { AuthorNamePipe } from './pipes/author-name.pipe';
 
 
 @NgModule({
   declarations: [
     BooksListComponent,
-    BooksDetailsComponent
+    BooksDetailsComponent,
+    CategoryNamePipe,
+    AuthorNamePipe
   ],
   imports: [
     CommonModule,

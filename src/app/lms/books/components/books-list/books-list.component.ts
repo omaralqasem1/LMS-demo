@@ -18,7 +18,7 @@ export class BooksListComponent implements OnInit, OnDestroy {
   categories$: Observable<Category[]>;
 
   constructor(private booksService: BooksService, categoriesService: CategoriesService) {
-    this.displayedColumns = ['name', 'category', 'author'];
+    this.displayedColumns = ['name'];
     this.list = [];
     this.categories$ = categoriesService.getList();
   }

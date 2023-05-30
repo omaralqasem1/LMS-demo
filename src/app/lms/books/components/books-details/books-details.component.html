@@ -1,19 +1,44 @@
-<form [formGroup]="form">
+<!-- <form [formGroup]="form">
     <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name">
-        
+
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Category</mat-label>
         <input matInput formControlName="categoryId">
-        
+
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Author</mat-label>
         <input matInput formControlName="author">
-  
+
     </mat-form-field>
-    <button mat-flat-button color="primary" (click)="save()"
-    [disabled]="form.invalid">Save</button>
-</form>
+    <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
+</form> -->
+<div>
+    <div>
+        <span>
+            Name:
+        </span>
+        <span>
+            {{ book.name }}
+        </span>
+    </div>
+    <div>
+        <span>
+            Category:
+        </span>
+        <span>
+            {{ book.categoryId | categoryName | async}}
+        </span>
+    </div>
+    <div>
+        <span>
+            Author:
+        </span>
+        <span>
+            {{ book.authorId | authorName | async}}
+        </span>
+    </div>
+</div>

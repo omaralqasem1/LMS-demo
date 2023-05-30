@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BooksService } from '../../services/books.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { IBook } from '../../models/book.interface';
 
 @Component({
   selector: 'app-books-details',
@@ -10,26 +10,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BooksDetailsComponent implements OnInit {
   form: FormGroup;
+  book: IBook;
 
-  constructor(formBuilder: FormBuilder, private booksService: BooksService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(formBuilder: FormBuilder, activatedRoute: ActivatedRoute) {
     this.form = formBuilder.group({
       name: [],
       categoryId: [],
       author: [],
     });
-    const book = activatedRoute.snapshot.data['book'];
-    this.form.patchValue(book);
+    this.book = activatedRoute.snapshot.data['book'];
+
   }
 
   ngOnInit(): void {
   }
 
-  save() {
-    this.booksService.create(this.form.value).subscribe(_ => {
-      this.router.navigate(['..'], {
-        relativeTo: this.activatedRoute
-      });
-    });
-  }
+  // save() {
+  //   this.booksService.create(this.form.value).subscribe(_ => {
+  //     this.router.navigate(['..'], {
+  //       relativeTo: this.activatedRoute
+  //     });
+  //   });
+  // }
 
 }
