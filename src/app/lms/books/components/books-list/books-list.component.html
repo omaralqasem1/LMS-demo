@@ -1,3 +1,6 @@
+<div class="d-flex align-items-center mb-3">
+    <h1>Books</h1>
+</div>
 <mat-form-field appearance="outline">
     <mat-label>Category</mat-label>
     <mat-select (selectionChange)="selectCategory($event)">
@@ -6,21 +9,20 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
-<table mat-table [dataSource]="list" class="mat-elevation-z8 w-100">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element">
-            <a href="/details" [routerLink]="element.id">
-                {{element.name}}
-            </a>
-        </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<app-list-preload [isLoading]="isLoading" [hasError]="hasError" [hasData]="hasData">
+    <table mat-table [dataSource]="list" class="mat-elevation-z8 w-100">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element">
+                <a href="/details" [routerLink]="element.id">
+                    {{element.name}}
+                </a>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</app-list-preload>
+<div *ngIf="!categorySelected" class="text-muted text-center">
+    <h3>Please select category to show available books</h3>
+</div>

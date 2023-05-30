@@ -16,11 +16,19 @@ export class BooksListComponent implements OnInit, OnDestroy {
   getListSubscription!: Subscription;
   list: IBook[];
   categories$: Observable<Category[]>;
+  isLoading: boolean;
+  hasError: boolean;
+  hasData: boolean;
+  categorySelected: boolean;
 
   constructor(private booksService: BooksService, categoriesService: CategoriesService) {
     this.displayedColumns = ['name'];
     this.list = [];
     this.categories$ = categoriesService.getList();
+    this.isLoading = false;
+    this.hasError = false;
+    this.hasData = false;
+    this.categorySelected = false;
   }
 
   ngOnDestroy(): void {
@@ -31,13 +39,27 @@ export class BooksListComponent implements OnInit, OnDestroy {
   ngOnInit(): void { }
 
   selectCategory(event: MatSelectChange) {
+    this.isLoading = true;
+    this.hasError = false;
+    this.categorySelected = true;
     if (this.getListSubscription)
       this.getListSubscription.unsubscribe();
     this.getListSubscription =
       this.booksService.getList(q => {
         return q.where('categoryId', '==', event.value)
-      }).subscribe(res => {
-        this.list = res;
-      });
+      }).subscribe(
+        {
+          next: res => {
+            this.list = res;
+            this.isLoading = false;
+            this.hasError = false;
+            this.hasData = this.list.length > 0;
+          },
+          error: _ => {
+            this.isLoading = false;
+            this.hasError = true;
+          }
+        }
+      );
   }
 }
