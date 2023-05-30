@@ -5,7 +5,7 @@
         <input [formControl]="nameCtrl" matInput>
     </mat-form-field>
 </div>
-<div mat-dialog-actions>
-    <button mat-button color="accent" mat-dialog-close>Cancel</button>
-    <button mat-button color="primary" (click)="create()" [disabled]="nameCtrl.invalid">Create</button>
+<div mat-dialog-actions class="justify-content-end">
+    <button mat-stroked-button color="accent" mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="create()" [disabled]="nameCtrl.invalid">Create</button>
 </div>
