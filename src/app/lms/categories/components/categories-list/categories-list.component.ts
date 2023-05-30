@@ -22,6 +22,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   deleteSubscription!: Subscription;
   updateSubscription!: Subscription;
   selectedCategory!: Category;
+  countSubscription!: Subscription;
   isLoading: boolean;
   hasError: boolean;
 
@@ -37,8 +38,8 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.getListSubscription)
-      this.getListSubscription.unsubscribe();
+    this.getListSubscription.unsubscribe();
+    this.countSubscription.unsubscribe();
     if (this.deleteSubscription)
       this.deleteSubscription.unsubscribe();
     if (this.updateSubscription)
@@ -49,7 +50,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     this.get(q => {
       return q.orderBy('id').limit(this.pageSize);
     });
-    this.categoriesService.getCount().subscribe(count => {
+    this.countSubscription = this.categoriesService.getCount().subscribe(count => {
       this.count = count;
     });
   }
