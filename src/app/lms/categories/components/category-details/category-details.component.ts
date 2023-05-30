@@ -6,6 +6,7 @@ import { Observable, map } from 'rxjs';
 import { BooksService } from 'src/app/lms/books/services/books.service';
 import { where } from 'firebase/firestore';
 
+
 @Component({
   selector: 'app-category-details',
   templateUrl: './category-details.component.html',
@@ -37,7 +38,7 @@ export class CategoryDetailsComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  save() {
+  save(closeBtn: HTMLButtonElement) {
     const category: Category = {
       ...this.category,
       ...this.form.value
@@ -47,10 +48,12 @@ export class CategoryDetailsComponent implements OnInit {
     }).subscribe(res => {
       if (res.length) {
         this.form.controls['name'].setErrors({ duplicatedName: true });
+        this.form.markAllAsTouched();
         return;
       }
       this.update.emit(category);
       this.form.reset();
+      closeBtn.click();
     });
   }
 }

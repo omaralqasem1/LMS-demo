@@ -1,8 +1,8 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="categoryDetailsModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Category Details</h1>
+                <h1 class="modal-title fs-5">Category Details</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -29,9 +29,10 @@
                 </p>
 
             </div>
-            <div class="modal-footer gap-2">
-                <button type="button" mat-stroked-button color="accent" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" mat-flat-button color="primary" (click)="save()">Save</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" #closeBtn
+                    data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="save(closeBtn)">Save</button>
             </div>
         </div>
     </div>

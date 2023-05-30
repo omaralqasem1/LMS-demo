@@ -25,7 +25,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   countSubscription!: Subscription;
   isLoading: boolean;
   hasError: boolean;
-
+  hasData: boolean;
 
   constructor(private categoriesService: CategoriesService, private dialog: MatDialog) {
     this.displayedColumns = ['name', 'options'];
@@ -35,6 +35,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     this.pageSize = 2;
     this.isLoading = true;
     this.hasError = false;
+    this.hasData = false;
   }
 
   ngOnDestroy(): void {
@@ -67,6 +68,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
             this.list = res;
             this.hasError = false;
             this.isLoading = false;
+            this.hasData = res.length > 0;
           },
           error: _ => {
             this.hasError = true;
