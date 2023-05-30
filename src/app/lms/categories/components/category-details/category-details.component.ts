@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Category } from '../../models.ts/category.class';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
+import { Observable, map } from 'rxjs';
+import { BooksService } from 'src/app/lms/books/services/books.service';
+import { where } from 'firebase/firestore';
 
 @Component({
   selector: 'app-category-details',
@@ -13,13 +16,17 @@ export class CategoryDetailsComponent implements OnInit {
     this.category = value || new Category('');
     this.form.reset();
     this.form.patchValue(this.category);
+    this.booksCount$ = this.booksService.getCount(where('categoryId', '==', this.category.id)).pipe(
+      map(count => count.toString())
+    );
   }
 
   form: FormGroup;
   category: Category;
+  booksCount$!: Observable<string>;
   @Output() update: EventEmitter<Category>;
 
-  constructor(formBuilder: FormBuilder, private categoriesService: CategoriesService) {
+  constructor(formBuilder: FormBuilder, private categoriesService: CategoriesService, private booksService: BooksService) {
     this.category = new Category('');
     this.form = formBuilder.group({
       name: ['', Validators.required],
@@ -27,8 +34,7 @@ export class CategoryDetailsComponent implements OnInit {
     this.update = new EventEmitter();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   save() {
     const category: Category = {

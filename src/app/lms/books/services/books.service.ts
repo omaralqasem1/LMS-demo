@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 import { IBook } from '../models/book.interface';
 import { from, map } from 'rxjs';
-import { collection, getCountFromServer } from 'firebase/firestore';
+import { QueryFieldFilterConstraint, collection, getCountFromServer, query } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +23,10 @@ export class BooksService {
     return this.fireStore.collection<IBook>(this._collectionName).doc(id).valueChanges();
   }
 
-  getCount() {
+  getCount(fieldFilter?: QueryFieldFilterConstraint) {
     const collectionRef = collection(this.fireStore.firestore, this._collectionName);
-    return from(getCountFromServer(collectionRef)).pipe(
+    const collQuery = fieldFilter ? query(collectionRef, fieldFilter) : collectionRef;
+    return from(getCountFromServer(collQuery)).pipe(
       map(res => res.data().count)
     );
   }

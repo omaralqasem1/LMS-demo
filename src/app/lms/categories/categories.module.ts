@@ -7,7 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { CategoriesRoutingModule } from './categories-routing.module';
@@ -36,7 +36,8 @@ import { CreateCategoryComponent } from './components/create-category/create-cat
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ]
 })
 export class CategoriesModule { }

@@ -15,11 +15,22 @@
                             exist</mat-error>
                     </mat-form-field>
                 </form>
-                ...
+                <p class="d-flex align-items-center gap-1">
+                    <span>Books count:</span>
+                    <span *ngIf="booksCount$ | async as booksCount; else loading" class="ms-1">
+                        {{booksCount}}
+                    </span>
+                    <ng-template #loading>
+                        <mat-spinner [diameter]="24"></mat-spinner>
+                        <span class="ms-1">
+                            loading..
+                        </span>
+                    </ng-template>
+                </p>
 
             </div>
             <div class="modal-footer gap-2">
-                <button type="button" mat-stroked-button color="primary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" mat-stroked-button color="accent" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" mat-flat-button color="primary" (click)="save()">Save</button>
             </div>
         </div>
