@@ -16,6 +16,7 @@ export class CategoryDetailsComponent implements OnInit {
     this.category = value || new Category('');
     this.form.reset();
     this.form.patchValue(this.category);
+    if (!value) return;
     this.booksCount$ = this.booksService.getCount(where('categoryId', '==', this.category.id)).pipe(
       map(count => count.toString())
     );
