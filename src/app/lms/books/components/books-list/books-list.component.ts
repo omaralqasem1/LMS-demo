@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IBook } from '../../models/book.interface';
 import { BooksService } from '../../services/books.service';
 import { PageEvent } from '@angular/material/paginator';
 import { QueryFn } from '@angular/fire/compat/firestore';
+import { Category } from 'src/app/lms/categories/models.ts/category.class';
+import { CategoriesService } from 'src/app/lms/categories/services/categories.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-books-list',
@@ -17,13 +20,15 @@ export class BooksListComponent implements OnInit, OnDestroy {
   pageSize: number;
   getListSubscription!: Subscription;
   list: IBook[];
+  categories$: Observable<Category[]>;
 
-  constructor(private booksService: BooksService) {
+  constructor(private booksService: BooksService, categoriesService: CategoriesService) {
     this.displayedColumns = ['name', 'category', 'author'];
     this.count = 0;
     this.list = [];
     this.pageIndex = 0;
     this.pageSize = 1;
+    this.categories$ = categoriesService.getList();
   }
 
   ngOnDestroy(): void {
@@ -74,5 +79,9 @@ export class BooksListComponent implements OnInit, OnDestroy {
     this.pageIndex = pageEvent.pageIndex;
   }
 
-
+  selectCategory(event: MatSelectChange) {
+    this.get(q => {
+      return q.where('categoryId', '==', event.value)
+    });
+  }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 import { BooksRoutingModule } from './books-routing.module';
 import { BooksListComponent } from './components/books-list/books-list.component';
@@ -30,7 +31,8 @@ import { BooksDetailsComponent } from './components/books-details/books-details.
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ]
 })
 export class BooksModule { }
