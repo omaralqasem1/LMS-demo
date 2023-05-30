@@ -22,12 +22,12 @@
             <span>Sign In</span>
         </a>
 
-        <div class="d-flex align-items-center gap-1 cursor-pointer" [matMenuTriggerFor]="menu"
+        <div class="d-flex align-items-center gap-1 cursor-pointer" [matMenuTriggerFor]="userMenu"
             *ngIf="isLoggedIn$ | async">
             <mat-icon class="account-icon">account_circle</mat-icon>
             <span>{{firstName$ | async}}</span>
         </div>
-        <mat-menu #menu="matMenu">
+        <mat-menu #userMenu="matMenu">
             <div class="user-menu d-flex gap-2 p-2 border-bottom">
                 <mat-icon class="account-icon text-muted">account_circle</mat-icon>
                 <div class="d-flex flex-column">
