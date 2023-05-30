@@ -19,6 +19,8 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   pageIndex: number;
   pageSize: number;
   getListSubscription!: Subscription;
+  deleteSubscription!: Subscription;
+  updateSubscription!: Subscription;
   selectedCategory!: Category;
   isLoading: boolean;
   hasError: boolean;
@@ -29,7 +31,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     this.count = 0;
     this.list = [];
     this.pageIndex = 0;
-    this.pageSize = 10;
+    this.pageSize = 2;
     this.isLoading = true;
     this.hasError = false;
   }
@@ -37,6 +39,10 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.getListSubscription)
       this.getListSubscription.unsubscribe();
+    if (this.deleteSubscription)
+      this.deleteSubscription.unsubscribe();
+    if (this.updateSubscription)
+      this.updateSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -95,20 +101,29 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   }
 
   delete(category: Category) {
-    this.categoriesService.delete(category.id).subscribe(_ => {
+    if (this.list.length == 1) {
+      this.pageIndex = 0;
+      this.get(q => {
+        return q.orderBy('id').limit(this.pageSize);
+      });
+    }
+    if (this.deleteSubscription)
+      this.deleteSubscription.unsubscribe();
+    this.deleteSubscription = this.categoriesService.delete(category.id).subscribe(_ => {
       this.count--;
     });
   }
 
   update(category: Category) {
-    this.categoriesService.update(category).subscribe(_ => {
-    });
+    if (this.updateSubscription)
+      this.updateSubscription.unsubscribe();
+    this.updateSubscription = this.categoriesService.update(category).subscribe();
   }
 
   add(): void {
     const dialogRef = this.dialog.open(CreateCategoryComponent, {
       width: '300px',
-      data: null,
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
