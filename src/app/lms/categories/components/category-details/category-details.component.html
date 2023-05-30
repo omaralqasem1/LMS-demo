@@ -17,12 +17,12 @@
                 </form>
                 <p class="d-flex align-items-center gap-1">
                     <span>Books count:</span>
-                    <span *ngIf="booksCount$ | async as booksCount; else loading" class="ms-1">
+                    <span class="fw-bold" *ngIf="booksCount$ | async as booksCount; else loading">
                         {{booksCount}}
                     </span>
                     <ng-template #loading>
                         <mat-spinner [diameter]="24"></mat-spinner>
-                        <span class="ms-1">
+                        <span>
                             loading..
                         </span>
                     </ng-template>
