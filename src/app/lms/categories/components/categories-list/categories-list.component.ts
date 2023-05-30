@@ -20,6 +20,8 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   pageSize: number;
   getListSubscription!: Subscription;
   selectedCategory!: Category;
+  isLoading: boolean;
+  hasError: boolean;
 
 
   constructor(private categoriesService: CategoriesService, private dialog: MatDialog) {
@@ -27,7 +29,9 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     this.count = 0;
     this.list = [];
     this.pageIndex = 0;
-    this.pageSize = 1;
+    this.pageSize = 10;
+    this.isLoading = true;
+    this.hasError = false;
   }
 
   ngOnDestroy(): void {
@@ -45,12 +49,24 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   }
 
   get(queryFn?: QueryFn) {
+    this.isLoading = true;
+    this.hasError = false;
     if (this.getListSubscription)
       this.getListSubscription.unsubscribe();
     this.getListSubscription =
-      this.categoriesService.getList(queryFn).subscribe(res => {
-        this.list = res;
-      });
+      this.categoriesService.getList(queryFn).subscribe(
+        {
+          next: res => {
+            this.list = res;
+            this.hasError = false;
+            this.isLoading = false;
+          },
+          error: _ => {
+            this.hasError = true;
+            this.isLoading = false;
+          }
+        }
+      );
   }
 
   nextPage() {
@@ -93,6 +109,10 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CreateCategoryComponent, {
       width: '300px',
       data: null,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+      this.count++;
     });
   }
 
