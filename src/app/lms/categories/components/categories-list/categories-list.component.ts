@@ -4,6 +4,8 @@ import { Category } from '../../models.ts/category.class';
 import { PageEvent } from '@angular/material/paginator';
 import { QueryFn } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateCategoryComponent } from '../create-category/create-category.component';
 
 @Component({
   selector: 'app-categories-list',
@@ -20,7 +22,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
   selectedCategory!: Category;
 
 
-  constructor(private categoriesService: CategoriesService) {
+  constructor(private categoriesService: CategoriesService, private dialog: MatDialog) {
     this.displayedColumns = ['name', 'options'];
     this.count = 0;
     this.list = [];
@@ -87,13 +89,12 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     });
   }
 
-  add() {
-    this.selectedCategory = <any>null;
+  add(): void {
+    const dialogRef = this.dialog.open(CreateCategoryComponent, {
+      width: '300px',
+      data: null,
+    });
   }
 
-  create(category: Category) {
-    this.categoriesService.create(category).subscribe(_ => {
 
-    })
-  }
 }

@@ -18,7 +18,6 @@ export class CategoryDetailsComponent implements OnInit {
   form: FormGroup;
   category: Category;
   @Output() update: EventEmitter<Category>;
-  @Output() create: EventEmitter<Category>;
 
   constructor(formBuilder: FormBuilder, private categoriesService: CategoriesService) {
     this.category = new Category('');
@@ -26,7 +25,6 @@ export class CategoryDetailsComponent implements OnInit {
       name: ['', Validators.required],
     });
     this.update = new EventEmitter();
-    this.create = new EventEmitter();
   }
 
   ngOnInit(): void {
@@ -44,10 +42,7 @@ export class CategoryDetailsComponent implements OnInit {
         this.form.controls['name'].setErrors({ duplicatedName: true });
         return;
       }
-      if (this.category.id)
-        this.update.emit(category);
-      else
-        this.create.emit(category)
+      this.update.emit(category);
       this.form.reset();
     });
   }

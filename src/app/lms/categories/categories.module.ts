@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 import { CategoriesRoutingModule } from './categories-routing.module';
@@ -13,12 +15,14 @@ import { CategoriesListComponent } from './components/categories-list/categories
 import { CategoryDetailsComponent } from './components/category-details/category-details.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CreateCategoryComponent } from './components/create-category/create-category.component';
 
 
 @NgModule({
   declarations: [
     CategoriesListComponent,
-    CategoryDetailsComponent
+    CategoryDetailsComponent,
+    CreateCategoryComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,8 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ]
 })
 export class CategoriesModule { }

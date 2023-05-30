@@ -1,5 +1,4 @@
-<button mat-flat-button data-bs-toggle="modal" color="primary" data-bs-target="#exampleModal"
-    (click)="add()">add</button>
+<button mat-flat-button color="primary" (click)="add()">add</button>
 <table mat-table [dataSource]="list" class="mat-elevation-z8 w-100">
 
     <!--- Note that these columns can be defined in any order.
@@ -37,5 +36,4 @@
 <mat-paginator (page)="changePage($event)" [length]="count" [pageIndex]="pageIndex" [pageSize]="pageSize">
 </mat-paginator>
 
-<app-category-details [category]="selectedCategory" (update)="update($event)"
-    (create)="create($event)"></app-category-details>
+<app-category-details [category]="selectedCategory" (update)="update($event)"></app-category-details>
