@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { BooksRoutingModule } from './books-routing.module';
 import { BooksListComponent } from './components/books-list/books-list.component';
@@ -12,6 +13,7 @@ import { BooksDetailsComponent } from './components/books-details/books-details.
 import { CategoryNamePipe } from './pipes/category-name.pipe';
 import { AuthorNamePipe } from './pipes/author-name.pipe';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { BookDetailsResolver } from './resolvers/book-details.resolver';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    SharedModule
-  ]
+    SharedModule,
+    MatSnackBarModule
+  ],
+  providers: [BookDetailsResolver]
 })
 export class BooksModule { }

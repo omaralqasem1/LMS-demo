@@ -1,43 +1,26 @@
-<!-- <form [formGroup]="form">
-    <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name">
-
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Category</mat-label>
-        <input matInput formControlName="categoryId">
-
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Author</mat-label>
-        <input matInput formControlName="author">
-
-    </mat-form-field>
-    <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Save</button>
-</form> -->
-<div>
+<h1 class="mb-3">Book Details</h1>
+<div class="fs-3 p-4 d-flex flex-column gap-2">
     <div>
-        <span>
+        <span class="text-muted">
             Name:
         </span>
-        <span>
+        <span class="ms-2">
             {{ book.name }}
         </span>
     </div>
     <div>
-        <span>
+        <span class="text-muted">
             Category:
         </span>
-        <span>
+        <span class="ms-2">
             {{ book.categoryId | categoryName | async}}
         </span>
     </div>
     <div>
-        <span>
+        <span class="text-muted">
             Author:
         </span>
-        <span>
+        <span class="ms-2">
             {{ book.authorId | authorName | async}}
         </span>
     </div>
