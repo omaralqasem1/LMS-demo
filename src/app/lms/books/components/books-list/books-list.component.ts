@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { IBook } from '../../models/book.interface';
 import { BooksService } from '../../services/books.service';
-import { Category } from 'src/app/lms/categories/models.ts/category.class';
+import { Category } from 'src/app/lms/categories/models/category.class';
 import { CategoriesService } from 'src/app/lms/categories/services/categories.service';
 import { MatSelectChange } from '@angular/material/select';
 

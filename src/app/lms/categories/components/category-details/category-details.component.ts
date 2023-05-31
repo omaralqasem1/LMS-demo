@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Category } from '../../models.ts/category.class';
+import { Category } from '../../models/category.class';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from '../../services/categories.service';
 import { Observable, map } from 'rxjs';

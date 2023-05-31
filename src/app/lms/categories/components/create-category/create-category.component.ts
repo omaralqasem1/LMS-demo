@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CategoriesService } from '../../services/categories.service';
-import { Category } from '../../models.ts/category.class';
+import { Category } from '../../models/category.class';
 
 
 @Component({

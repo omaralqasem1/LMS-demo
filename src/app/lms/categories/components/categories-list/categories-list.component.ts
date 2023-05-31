@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoriesService } from '../../services/categories.service';
-import { Category } from '../../models.ts/category.class';
+import { Category } from '../../models/category.class';
 import { PageEvent } from '@angular/material/paginator';
 import { QueryFn } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
