@@ -32,7 +32,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     this.count = 0;
     this.list = [];
     this.pageIndex = 0;
-    this.pageSize = 2;
+    this.pageSize = 10;
     this.isLoading = true;
     this.hasError = false;
     this.hasData = false;
