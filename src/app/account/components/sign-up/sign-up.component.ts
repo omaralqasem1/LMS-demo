@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 import { UsersService } from '../../services/users.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class SignUpComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(formBuilder: FormBuilder, private accountService: AccountService, private users: UsersService) {
+  constructor(formBuilder: FormBuilder, private accountService: AccountService, private router: Router) {
     this.form = formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: [''],
@@ -29,7 +30,9 @@ export class SignUpComponent implements OnInit {
 
   register() {
     if (this.form.invalid) return;
-    this.accountService.signUp(this.form.value).subscribe();
+    this.accountService.signUp(this.form.value).subscribe(_ => {
+      this.router.navigateByUrl('home');
+    });
   }
 
   matchPasswordValidator(control: AbstractControl): ValidationErrors | null {

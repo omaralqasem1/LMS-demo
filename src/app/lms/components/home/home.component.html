@@ -1,1 +1,51 @@
-<p>home works!</p>
+<div class="row">
+    <div class="col">
+        <div class="text-white widget p-4 rounded-3 book-widget text-center">
+            <mat-icon>library_books</mat-icon>
+            <div class="fs-1 fw-bold mt-4">
+                <span *ngIf="booksCount$ | async as booksCount; else booksLoading">{{booksCount}}</span>
+                <ng-template #booksLoading>
+                    <span>
+                        loading..
+                    </span>
+                </ng-template>
+            </div>
+            <div class="fs-1">
+                <span>Books</span>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="text-white widget p-4 rounded-3 author-widget text-center">
+            <mat-icon>group</mat-icon>
+            <div class="fs-1 fw-bold mt-4">
+                <span *ngIf="authorsCount$ | async as authorsCount; else authorsLoading">{{authorsCount}}</span>
+                <ng-template #authorsLoading>
+                    <span>
+                        loading..
+                    </span>
+                </ng-template>
+            </div>
+            <div class="fs-1">
+                <span>Authors</span>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="text-white widget p-4 rounded-3 category-widget text-center">
+            <mat-icon>category</mat-icon>
+            <div class="fs-1 fw-bold mt-4">
+                <span
+                    *ngIf="categoriesCount$ | async as categoriesCount; else categoriesLoading">{{categoriesCount}}</span>
+                <ng-template #categoriesLoading>
+                    <span>
+                        loading..
+                    </span>
+                </ng-template>
+            </div>
+            <div class="fs-1">
+                <span>Categories</span>
+            </div>
+        </div>
+    </div>
+</div>

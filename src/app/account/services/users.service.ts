@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { IUser } from '../models/user.interface';
-import { from } from 'rxjs';
+import { from, map } from 'rxjs';
+import { getCountFromServer, collection } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,12 @@ export class UsersService {
 
   get(id: string) {
     return this.fireStore.collection(this._collectionName).doc(id).valueChanges();
+  }
+
+  getCount() {
+    const collectionRef = collection(this.fireStore.firestore, this._collectionName);
+    return from(getCountFromServer(collectionRef)).pipe(
+      map(res => res.data().count)
+    );
   }
 }

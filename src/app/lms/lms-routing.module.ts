@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from '../account/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,8 +10,23 @@ const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         component: HomeComponent
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule),
+        canMatch: [AuthGuard]
+      },
+      {
+        path: 'books',
+        loadChildren: () => import('./books/books.module').then(m => m.BooksModule),
+        canMatch: [AuthGuard]
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
       }
     ]
   }

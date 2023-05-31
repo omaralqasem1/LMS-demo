@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>New Category</h1>
+<div mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input [formControl]="nameCtrl" matInput>
+    </mat-form-field>
+    <div class="text-danger fs-5" *ngIf="hasError">
+        <span>Failed to create, Try again</span>
+    </div>
+</div>
+<div mat-dialog-actions class="justify-content-end">
+    <button mat-stroked-button color="accent" mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="create()" [disabled]="nameCtrl.invalid || inProgress">
+        <span *ngIf="inProgress">In progress..</span>
+        <span *ngIf="!inProgress">Create</span>
+    </button>
+</div>

@@ -1,0 +1,22 @@
+.navbar-header-item-selected {
+    background: rgba(0, 0, 0, .2)
+}
+
+.navbar-header-item:hover {
+    color: white;
+    background: rgba(0, 0, 0, .4);
+}
+
+.account-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2.5rem;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.user-menu {
+    width: 275px;
+}

@@ -1,0 +1,17 @@
+<div class="position-relative">
+    <div *ngIf="isLoading"
+        class="position-absolute z-index-1 start-0 end-0 bottom-0 top-0 text-center d-flex sling-items-center justify-content-center bg-black bg-opacity-25">
+        <mat-spinner class="m-auto" [strokeWidth]="5"></mat-spinner>
+    </div>
+    <div *ngIf="hasError" class="text-danger text-center">
+        <mat-icon class="icon-xxl">error</mat-icon>
+        <h3>Oops! Fetching data failed</h3>
+    </div>
+    <ng-content *ngIf="!hasError && hasData"></ng-content>
+    <div *ngIf="!hasData && !isLoading" class="text-muted text-center">
+        <mat-icon class="icon-xxl">
+            find_in_page
+        </mat-icon>
+        <h3>No results found!</h3>
+    </div>
+</div>
