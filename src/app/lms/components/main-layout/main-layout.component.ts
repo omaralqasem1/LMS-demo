@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AccountService } from 'src/app/account/services/account.service';
 
 @Component({
@@ -7,26 +7,24 @@ import { AccountService } from 'src/app/account/services/account.service';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements OnInit {
-  isLoggedIn$: Observable<boolean>;
-  firstName$: Observable<string>;
-  lastName$: Observable<string>;
-  email$: Observable<string>;
+export class MainLayoutComponent implements OnInit, OnDestroy {
+  isLoggedIn!: boolean;
+  firstName!: string;
+  lastName!: string;
+  email!: string;
+  userSubscription: Subscription;
 
   constructor(private accountService: AccountService) {
-    const userInfo$ = accountService.userInfo$;
-    this.isLoggedIn$ = userInfo$.pipe(
-      map(user => user && user.isAuthenticated)
-    );
-    this.firstName$ = userInfo$.pipe(
-      map(user => user.firstName)
-    );
-    this.lastName$ = userInfo$.pipe(
-      map(user => user.lastName || '')
-    );
-    this.email$ = userInfo$.pipe(
-      map(user => user.email)
-    )
+    this.userSubscription = accountService.userInfo$.subscribe(user => {
+      this.isLoggedIn = user && user.isAuthenticated;
+      this.firstName = user.firstName;
+      this.lastName = user.lastName || '';
+      this.email = user.email;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
