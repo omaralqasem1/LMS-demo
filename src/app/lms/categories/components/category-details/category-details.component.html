@@ -30,9 +30,14 @@
 
             </div>
             <div class="modal-footer">
+                <div class="d-flex gap-1 me-auto" *ngIf="inProgress">
+                    <mat-spinner [diameter]="24" [strokeWidth]="3"></mat-spinner>
+                    <span>checking name..</span>
+                </div>
                 <button type="button" class="btn btn-outline-secondary" #closeBtn
                     data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" (click)="save(closeBtn)">Save</button>
+                <button type="button" class="btn btn-primary" [disabled]="inProgress || form.invalid"
+                    (click)="save(closeBtn)">Save</button>
             </div>
         </div>
     </div>

@@ -26,6 +26,7 @@ export class CategoryDetailsComponent implements OnInit {
   form: FormGroup;
   category: Category;
   booksCount$!: Observable<string>;
+  inProgress: boolean;
   @Output() update: EventEmitter<Category>;
 
   constructor(formBuilder: FormBuilder, private categoriesService: CategoriesService, private booksService: BooksService) {
@@ -34,26 +35,37 @@ export class CategoryDetailsComponent implements OnInit {
       name: ['', Validators.required],
     });
     this.update = new EventEmitter();
+    this.inProgress = false;
   }
 
   ngOnInit(): void { }
 
   save(closeBtn: HTMLButtonElement) {
+    if (this.form.invalid || this.inProgress) return;
     const category: Category = {
       ...this.category,
       ...this.form.value
     }
+    this.inProgress = true;
     this.categoriesService.getList(q => {
       return q.where('name', '==', category.name);
-    }).subscribe(res => {
-      if (res.length) {
-        this.form.controls['name'].setErrors({ duplicatedName: true });
-        this.form.markAllAsTouched();
-        return;
+    }).subscribe(
+      {
+        next: res => {
+          if (res.length) {
+            this.form.controls['name'].setErrors({ duplicatedName: true });
+            this.form.markAllAsTouched();
+            return;
+          }
+          this.update.emit(category);
+          this.form.reset();
+          closeBtn.click();
+          this.inProgress = false;
+        },
+        error: _ => {
+          this.inProgress = false;
+        }
       }
-      this.update.emit(category);
-      this.form.reset();
-      closeBtn.click();
-    });
+    );
   }
 }
